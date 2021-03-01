@@ -1,46 +1,50 @@
-import { NativeModules } from 'react-native'
+import {NativeModules} from "react-native";
 
-const { UnityNativeModule } = NativeModules
+const {UnityNativeModule} = NativeModules;
 
-export const UnityMessagePrefix = '@UnityMessage@'
+export const UnityMessagePrefix = "@UnityMessage@";
 
 export default class MessageHandler {
-    public id: number
-    public seq: 'start' | 'end' | ''
-    public name: string
-    public data: any
+  public id: number;
+  public seq: "start" | "end" | "";
+  public name: string;
+  public data: any;
 
-    constructor () {
-    }
+  constructor() {}
 
-    public static deserialize (message: string): MessageHandler {
-        if (!MessageHandler.isUnityMessage(message)) {
-            throw new Error(`"${message}" is't an UnityMessage.`)
-        }
-        message = message.replace(UnityMessagePrefix, '')
-        const m = JSON.parse(message)
-        const handler = new MessageHandler()
-        handler.id = m.id
-        handler.seq = m.seq
-        handler.name = m.name
-        handler.data = m.data
-        return handler
+  public static deserialize(message: string): MessageHandler {
+    if (!MessageHandler.isUnityMessage(message)) {
+      throw new Error(`"${message}" isn't an UnityMessage.`);
     }
+    message = message.replace(UnityMessagePrefix, "");
+    const m = JSON.parse(message);
+    const handler = new MessageHandler();
+    handler.id = m.id;
+    handler.seq = m.seq;
+    handler.name = m.name;
+    handler.data = m.data;
+    return handler;
+  }
 
-    public static isUnityMessage (message: string) {
-        if (message.startsWith(UnityMessagePrefix)) {
-            return true
-        } else {
-            return false
-        }
+  public static isUnityMessage(message: string) {
+    if (message.startsWith(UnityMessagePrefix)) {
+      return true;
+    } else {
+      return false;
     }
+  }
 
-    public send (data: any) {
-        UnityNativeModule.postMessage('UnityMessageManager', 'onRNMessage', UnityMessagePrefix + JSON.stringify({
-            id: this.id,
-            seq: 'end',
-            name: this.name,
-            data: data
-        }))
-    }
+  public send(data: any) {
+    UnityNativeModule.postMessage(
+      "UnityMessageManager",
+      "onRNMessage",
+      UnityMessagePrefix +
+        JSON.stringify({
+          id: this.id,
+          seq: "end",
+          name: this.name,
+          data: data,
+        }),
+    );
+  }
 }

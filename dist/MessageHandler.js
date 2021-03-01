@@ -3,15 +3,15 @@ exports.__esModule = true;
 exports.UnityMessagePrefix = void 0;
 var react_native_1 = require("react-native");
 var UnityNativeModule = react_native_1.NativeModules.UnityNativeModule;
-exports.UnityMessagePrefix = '@UnityMessage@';
+exports.UnityMessagePrefix = "@UnityMessage@";
 var MessageHandler = /** @class */ (function () {
     function MessageHandler() {
     }
     MessageHandler.deserialize = function (message) {
         if (!MessageHandler.isUnityMessage(message)) {
-            throw new Error("\"" + message + "\" is't an UnityMessage.");
+            throw new Error("\"" + message + "\" isn't an UnityMessage.");
         }
-        message = message.replace(exports.UnityMessagePrefix, '');
+        message = message.replace(exports.UnityMessagePrefix, "");
         var m = JSON.parse(message);
         var handler = new MessageHandler();
         handler.id = m.id;
@@ -29,12 +29,13 @@ var MessageHandler = /** @class */ (function () {
         }
     };
     MessageHandler.prototype.send = function (data) {
-        UnityNativeModule.postMessage('UnityMessageManager', 'onRNMessage', exports.UnityMessagePrefix + JSON.stringify({
-            id: this.id,
-            seq: 'end',
-            name: this.name,
-            data: data
-        }));
+        UnityNativeModule.postMessage("UnityMessageManager", "onRNMessage", exports.UnityMessagePrefix +
+            JSON.stringify({
+                id: this.id,
+                seq: "end",
+                name: this.name,
+                data: data
+            }));
     };
     return MessageHandler;
 }());

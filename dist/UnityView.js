@@ -7,6 +7,8 @@ var __extends = (this && this.__extends) || (function () {
         return extendStatics(d, b);
     };
     return function (d, b) {
+        if (typeof b !== "function" && b !== null)
+            throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
         extendStatics(d, b);
         function __() { this.constructor = d; }
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
@@ -47,7 +49,7 @@ var UnityView = /** @class */ (function (_super) {
                 if (onUnityMessage && message instanceof MessageHandler_1["default"]) {
                     onUnityMessage(message);
                 }
-                if (onMessage && typeof message === 'string') {
+                if (onMessage && typeof message === "string") {
                     onMessage(message);
                 }
             })
@@ -63,7 +65,7 @@ var UnityView = /** @class */ (function (_super) {
     UnityView.prototype.render = function () {
         var props = this.props;
         return (React.createElement(react_native_1.View, __assign({}, props),
-            React.createElement(NativeUnityView, { style: { position: 'absolute', left: 0, right: 0, top: 0, bottom: 0 }, onUnityMessage: props.onUnityMessage, onMessage: props.onMessage }),
+            React.createElement(NativeUnityView, { style: { position: "absolute", left: 0, right: 0, top: 0, bottom: 0 }, onUnityMessage: props.onUnityMessage, onMessage: props.onMessage }),
             props.children));
     };
     return UnityView;
@@ -99,6 +101,6 @@ const UnityView = ({ onUnityMessage, onMessage, ...props } : UnityViewProps) => 
     )
 }
 */
-NativeUnityView = react_native_1.requireNativeComponent('RNUnityView', UnityView);
+NativeUnityView = react_native_1.requireNativeComponent("RNUnityView", UnityView);
 exports["default"] = UnityView;
 //# sourceMappingURL=UnityView.js.map

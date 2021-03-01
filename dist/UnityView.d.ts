@@ -1,7 +1,7 @@
-import * as React from 'react';
-import { ViewProps } from 'react-native';
-import MessageHandler from './MessageHandler';
-import { Component } from 'react';
+import * as React from "react";
+import { ViewProps } from "react-native";
+import MessageHandler from "./MessageHandler";
+import { Component } from "react";
 export interface UnityViewProps extends ViewProps {
     /**
      * Receive string message from unity.

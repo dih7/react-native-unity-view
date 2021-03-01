@@ -1,4 +1,4 @@
-import MessageHandler from './MessageHandler';
+import MessageHandler from "./MessageHandler";
 export interface UnityViewMessage {
     name: string;
     data: any;

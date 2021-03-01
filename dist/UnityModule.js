@@ -49,7 +49,7 @@ var waitCallbackMessageMap = {};
 function handleMessage(message) {
     if (MessageHandler_1["default"].isUnityMessage(message)) {
         var handler = MessageHandler_1["default"].deserialize(message);
-        if (handler.seq === 'end') {
+        if (handler.seq === "end") {
             // handle callback message
             var m = waitCallbackMessageMap[handler.id];
             delete waitCallbackMessageMap[handler.id];
@@ -93,20 +93,21 @@ var UnityModuleImpl = /** @class */ (function () {
         });
     };
     UnityModuleImpl.prototype.postMessageToUnityManager = function (message) {
-        if (typeof message === 'string') {
-            this.postMessage('UnityMessageManager', 'onMessage', message);
+        if (typeof message === "string") {
+            this.postMessage("UnityMessageManager", "onMessage", message);
         }
         else {
             var id = generateId();
             if (message.callBack) {
                 waitCallbackMessageMap[id] = message;
             }
-            this.postMessage('UnityMessageManager', 'onRNMessage', MessageHandler_1.UnityMessagePrefix + JSON.stringify({
-                id: id,
-                seq: message.callBack ? 'start' : '',
-                name: message.name,
-                data: message.data
-            }));
+            this.postMessage("UnityMessageManager", "onRNMessage", MessageHandler_1.UnityMessagePrefix +
+                JSON.stringify({
+                    id: id,
+                    seq: message.callBack ? "start" : "",
+                    name: message.name,
+                    data: message.data
+                }));
         }
     };
     UnityModuleImpl.prototype.postMessage = function (gameObject, methodName, message) {
@@ -146,14 +147,14 @@ var UnityModuleImpl = /** @class */ (function () {
         var _this = this;
         this.stringListeners = {};
         this.unityMessageListeners = {};
-        react_native_1.DeviceEventEmitter.addListener('onUnityMessage', function (message) {
+        react_native_1.DeviceEventEmitter.addListener("onUnityMessage", function (message) {
             var result = handleMessage(message);
             if (result instanceof MessageHandler_1["default"]) {
                 Object.values(_this.unityMessageListeners).forEach(function (listener) {
                     listener(result);
                 });
             }
-            if (typeof result === 'string') {
+            if (typeof result === "string") {
                 Object.values(_this.stringListeners).forEach(function (listener) {
                     listener(result);
                 });

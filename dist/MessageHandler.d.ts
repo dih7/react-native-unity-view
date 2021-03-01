@@ -1,7 +1,7 @@
 export declare const UnityMessagePrefix = "@UnityMessage@";
 export default class MessageHandler {
     id: number;
-    seq: 'start' | 'end' | '';
+    seq: "start" | "end" | "";
     name: string;
     data: any;
     constructor();
